@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agriculture Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f9f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      flex: 1 1 300px;
+      max-width: 400px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #2e7d32;
+    }
+
+    .moisture-bar {
+      height: 20px;
+      background-color: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .moisture-fill {
+      height: 100%;
+      background-color: #4caf50;
+      width: 0;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #e8f5e9;
+      margin-top: 2rem;
+      font-size: 0.9em;
+    }
+
+    button {
+      background-color: #66bb6a;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #558b2f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌱 Smart Agriculture Dashboard</h1>
+    <p>Monitor farm conditions in real time</p>
+  </header>
+
+  <div class="container">
+    <!-- Weather Section -->
+    <div class="card">
+      <h3>🌦️ Weather Overview</h3>
+      <p><strong>Temperature:</strong> <span id="temp">27°C</span></p>
+      <p><strong>Humidity:</strong> <span id="humidity">65%</span></p>
+      <p><strong>Wind:</strong> <span id="wind">12 km/h</span></p>
+      <button onclick="updateWeather()">Refresh</button>
+    </div>
+
+    <!-- Soil Moisture Section -->
+    <div class="card">
+      <h3>💧 Soil Moisture</h3>
+      <p><strong>Current Level:</strong> <span id="moisture-value">45%</span></p>
+      <div class="moisture-bar">
+        <div class="moisture-fill" id="moisture-fill"></div>
+      </div>
+      <button onclick="updateMoisture()">Update</button>
+    </div>
+
+    <!-- Crop Monitoring Section -->
+    <div class="card">
+      <h3>🌾 Crop Monitoring</h3>
+      <ul id="crop-status">
+        <li>Wheat - ✅ Healthy</li>
+        <li>Rice - ✅ Growing</li>
+        <li>Corn - ⚠️ Pest Alert</li>
+      </ul>
+      <button onclick="updateCrops()">Simulate Crop Update</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 Smart AgriTech. All rights reserved.
+  </div>
+
+  <script>
+    // Dummy weather update
+    function updateWeather() {
+      const temp = Math.floor(Math.random() * 10 + 25); // 25 - 35°C
+      const humidity = Math.floor(Math.random() * 30 + 50); // 50 - 80%
+      const wind = Math.floor(Math.random() * 20 + 5); // 5 - 25 km/h
+
+      document.getElementById('temp').innerText = temp + '°C';
+      document.getElementById('humidity').innerText = humidity + '%';
+      document.getElementById('wind').innerText = wind + ' km/h';
+    }
+
+    // Dummy moisture update
+    function updateMoisture() {
+      const moisture = Math.floor(Math.random() * 60 + 20); // 20 - 80%
+      document.getElementById('moisture-value').innerText = moisture + '%';
+      document.getElementById('moisture-fill').style.width = moisture + '%';
+    }
+
+    // Dummy crop status update
+    function updateCrops() {
+      const crops = [
+        "Wheat - ✅ Healthy",
+        "Rice - ⚠️ Needs Water",
+        "Corn - ✅ Pest Free",
+        "Soy - ✅ Growing",
+        "Barley - ⚠️ Disease Detected"
+      ];
+      const ul = document.getElementById('crop-status');
+      ul.innerHTML = '';
+
+      // Random 3 crops
+      for (let i = 0; i < 3; i++) {
+        const li = document.createElement('li');
+        li.innerText = crops[Math.floor(Math.random() * crops.length)];
+        ul.appendChild(li);
+      }
+    }
+
+    // Initialize values on load
+    window.onload = () => {
+      updateWeather();
+      updateMoisture();
+    };
+  </script>
+</body>
+</html>
